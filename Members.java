@@ -17,6 +17,7 @@ public class Members {
             if (borrowedBooks.size() < 3) {
                 book.setStatus(Books.BookStatus.BORROWED);
                 borrowedBooks.add(book);
+                System.out.println("succesfully borrwed this " + book);
                 return true;
             }
             return false;

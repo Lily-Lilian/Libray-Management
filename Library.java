@@ -5,10 +5,12 @@ import java.util.stream.Collectors;
 public class Library {
     private List<Books> bookCollection;
     private List<Members> memberCollections;
+    private String libraryName;
 
-    public Library() {
+    public Library(String libraryName) {
         this.bookCollection = new ArrayList<>();
         this.memberCollections = new ArrayList<>();
+        this.libraryName = libraryName;
     }
 
     public boolean addBook(Books newBook) {
@@ -29,13 +31,34 @@ public class Library {
 
     // Book Search Method
     public List<Books> findBookByTitle(String title) {
-        return bookCollection.stream().filter(book -> book.getTitle().toLowerCase().contains(title.toLowerCase()))
+        System.out.println("finding a book by a title: " + title);
+        List<Books> findBooks = bookCollection.stream()
+                .filter(book -> book.getTitle().toLowerCase().contains(title.toLowerCase()))
                 .collect(Collectors.toList());
+        if (findBooks.isEmpty())
+            System.out.println("no book found for this title: ");
+        else {
+            System.out.println("book found: ");
+            findBooks.forEach(book -> System.out
+                    .println(book.getTitle() + " by " + book.getAuthor() + " and it is " + book.getStatus()));
+        }
+        return findBooks;
+
     }
 
     public List<Books> findBookByAuthor(String author) {
-        return bookCollection.stream().filter(book -> book.getAuthor().toLowerCase().contains(author.toLowerCase()))
+        System.out.println("finding a book by an Author");
+        List<Books> findBooks = bookCollection.stream()
+                .filter(book -> book.getAuthor().toLowerCase().contains(author.toLowerCase()))
                 .collect(Collectors.toList());
+        if (findBooks.isEmpty())
+            System.out.println("no book found for this Author");
+        else {
+            System.out.println("Book found: ");
+            findBooks.forEach(book -> System.out
+                    .println(book.getTitle() + " by " + book.getAuthor() + " and it is " + book.getStatus()));
+        }
+        return findBooks;
     }
 
     public List<Books> findAvailableBooks(Books status) {
@@ -89,6 +112,7 @@ public class Library {
     }
 
     public List<Books> getAllBooks() {
+        System.out.println("this is the book collection: " + bookCollection);
         return new ArrayList<>(bookCollection);
     }
 

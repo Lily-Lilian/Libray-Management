@@ -29,19 +29,14 @@ public class Librarian {
         this.employeeId = employeeId;
     }
 
-    public enum AccessLevel {
-        ADMIN,
-        SENIOR,
-        JUNIOR,
-    }
-
     public Librarian(
 
             String name, AccessLevel accessLevel,
-            int employeeId) {
+            int employeeId, Library library) {
         this.name = name;
         this.accessLevel = accessLevel;
         this.employeeId = employeeId;
+        this.library = library;
     }
 
     public boolean addBook(Books book) {
@@ -49,6 +44,10 @@ public class Librarian {
     }
 
     public boolean removeBook(Books book) {
+        if (accessLevel != AccessLevel.ADMIN)
+            System.out.println("Not permitted");
+        else
+            System.out.println("this book is removed" + book);
         return library.removeBook(book);
     }
 
@@ -64,5 +63,11 @@ public class Librarian {
             return true;
         }
         return false;
+    }
+
+    public enum AccessLevel {
+        ADMIN,
+        SENIOR,
+        JUNIOR,
     }
 }
